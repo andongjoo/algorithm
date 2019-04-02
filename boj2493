@@ -1,0 +1,103 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+const int MAX=100099;
+int a[MAX]={0,};
+int main() {
+  int n;
+  stack<int> s;
+  cin>>n;
+  for(int i=0;i<n;i++)
+    cin>>a[i];
+  int index=0;
+  int max=a[0];
+  s.push(0);
+	
+  while(index<n)
+  {
+		  	
+		  // 	printf("index:%d\n",index);
+  	if ( a[index]<a[index+1])
+  	{
+  		if( a[index]>max)
+  			max=a[index];
+	  
+	   // if (s.size()==0)
+	   // {
+	      
+	   // }
+	   // else 
+	   // {
+	   //    int l = index -s.top()+1;
+	   //    int h=  a[index+1]
+	   // }
+	    
+	  	s.push(index);
+	
+	}
+	
+  	else if (a[index]>=a[index+1])
+  	{
+  	  s.push(index);
+  		if (a[index]>max)
+  		{
+  		  max=a[index];
+  		  // printf("여기다 max %d\n",max);
+  		  
+  		}
+  		if ( s.size()==0)
+  		{
+			int l = index+1;
+			int h = a[index];
+			int area=l*h;
+			if ( area>max)
+					max=area;		
+		}
+  		else
+		{
+		  // printf("s:top(%d\n",s.top());
+			while (s.size()!=0 &&   a[s.top()] >=a[index+1])
+  			{
+				 
+					int h = a[s.top()];
+					s.pop();
+					int l;
+					if (s.size()!=0)
+					  l  = index-s.top();
+					else
+					  l= index+1;
+					  
+					int area=l*h;
+					
+				// 	printf("l;%d h :%d index:%d ",l,h,index);
+				// 	printf("area %d \n",area);
+					if ( max<area)
+						max=area;
+			 
+  			  if ( s.size()==0)
+			  			break;
+  			  
+  			}
+  		
+  		
+		  }	
+  		
+  		
+  		
+  		
+  		
+	  }
+  	
+  	
+  // printf("max:%d\n",max);
+  index++;
+  
+  }
+
+
+
+	printf("%d",max);
+
+      
+  return 0;
+}
