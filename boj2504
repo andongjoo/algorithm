@@ -1,0 +1,93 @@
+#include <iostream>
+#include <stack>
+#include <vector>
+
+using namespace std;
+
+int main() {
+  vector<char> v;  
+  char str[100];
+  scanf("%s",&str);
+  stack<char> s;
+  int size=0;
+  for(int i=0;str[i]!='\0';i++)
+    size++;
+  
+  int sum=0;
+  int mul=1;
+  int big=0;
+  int small=0;
+// if (str[0]==']' || str[0]==')')
+// {
+//   printf("0");
+//   return 0;
+// }
+//   if(size<=1)
+//   {
+//     printf("0");
+//     		return 0;
+//   }
+  for(int i=0;i<size;i++)
+  {
+    
+    // printf("%c\n",str[i]);
+    // printf("%d\n",sum);
+    if (str[i]=='(')
+    { 
+      small++;
+      mul*=2;
+      s.push(str[i]);
+      if (i+1<size&&  str[i+1]==')')
+        sum+=mul;
+    }
+    else if (str[i]=='[')
+    {
+      big++;
+      mul*=3;
+      s.push(str[i]);
+      if (i+1<size && str[i+1]==']')
+        sum+=mul;
+    }
+    else if (str[i]==']')
+    {
+       big--; 
+    	if( s.empty()|| big<0 || s.top()!='[')
+    	{
+    		printf("0");
+    		return 0;
+		}   
+       
+      mul/=3;
+      s.pop();
+      
+    
+      
+    }
+    
+    
+    else if (str[i]==')')
+    {
+      	small--;
+    	if( s.empty()|| small<0 || s.top()!='(')
+    	{
+    		printf("0");
+    		return 0;
+		}
+      mul/=2;
+      s.pop();
+    }
+    
+    // printf("%c\n",str[i]);
+    // printf("%d\n",sum);
+    // printf("small :%d big :%d \n",small,big);
+    
+  }
+  
+  if (s.size()!=0 || big!=0 ||small!=0)
+    printf("0");
+  else
+    printf("%d\n",sum);
+  
+  
+  return 0;
+}
