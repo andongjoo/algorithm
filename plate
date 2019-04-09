@@ -1,0 +1,83 @@
+/*
+접시가 a, b, c, d 가 있고, 알파벳 순으로 한쪽이 막혀 있는 세척기에 들어간다고 할 때, 
+b a c d 순으로 꺼내기 위해서는 push, push, pop, pop, push, pop, push, pop을 하면 된다. 
+세척기에서 꺼내는 순서가 주어질 때 그 동작을 출력하는 프로그램을 작성하시오. 
+만약 주어진 순서대로 접시를 꺼낼 수 없다면 “impossible”을 출력한다.
+
+첫째 줄에 소문자 알파벳이 주어진다. 중복된 소문자 알파벳은 입력되지 않는다. 알파벳 소문자는 26개이다.  
+
+접시를 꺼내는 것이 가능한 경우 push, pop의 순서를 출력한다. 이것이 불가능하다면 impossible을 출력한다.  
+
+예제 입력 
+bacd
+
+예제 출력
+push
+push
+pop
+pop
+push
+pop
+push
+pop
+ */
+ 
+ #include <iostream>
+#include <string>
+#include <stack>
+#include <vector>
+
+
+using namespace std;
+int main() {
+ 
+  	char str[30];
+  	vector<char> v(500);
+  	stack<char> s;
+    scanf("%s",str);
+    int size=0;
+    for(int i=0;str[i]!='\0';i++)
+  	  size++;
+    char index='a';
+    int t=0;
+    int flag=1;
+  	for(int i=0;i<size;i++)
+  	{
+  	  
+  	  while(s.empty() || s.top()!=str[i])
+  	  {
+  	    
+  	      
+  	      if(flag>size )
+  	      {
+  	        printf("impossible");
+  	        return 0;
+  	      }
+  	      
+  	      flag++;
+  	      s.push(index++);  
+          v[t++]='+';
+  	   
+  	   
+  	  }
+  	  s.pop();
+  	  v[t++]='-';
+  	  
+  	}
+	
+	  for(int i=0;i<t;i++)
+	  {
+	    if (v[i]=='+')
+	    {
+	      printf("push\n");
+	    }
+	    else
+	     {
+	       printf("pop\n");
+	     }
+	  }
+  
+  	
+  
+	return 0;
+}
