@@ -1,0 +1,54 @@
+#include <iostream>
+#include <queue>
+using namespace std;
+const int MAX=100001;
+int n,k;
+int a[MAX]={0,};
+
+int main() {
+  
+  cin >>n>>k;
+  
+  queue<int> q;
+  q.push(k);
+  a[k]=1;
+  while(!q.empty())
+  {
+    int x= q.front();
+    q.pop();
+    if (x<3 && a[x]==0)
+    {
+      // printf("x:%d\n",x);
+      a[x]=1;
+      q.push(x);
+    }
+     if (x>=3&& a[x/3]==0 )
+    { 
+        // printf("x/3:%d\n",x/3);
+        a[x/3]=1;
+        q.push(x/3);    
+      
+    }
+    if ( 2*x<=n && a[2*x]==0)
+    {
+      // printf("x*2:%d\n",x*2);
+      a[x*2]=1;
+      q.push(x*2);
+    }
+
+  }
+  
+  int cnt=0;
+  for(int i=1;i<=n;i++)
+  {
+      if (a[i]==1)
+        cnt++;
+  }  
+  // for(int i=1;i<=n;i++)
+  // {
+  //     printf("%d ",a[i]);
+  // } 
+  // printf("\n");
+  printf("%d",n-cnt);
+  return 0;
+}
