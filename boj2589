@@ -1,0 +1,101 @@
+#include <iostream>
+#include <queue>
+#include <vector>
+#include <algorithm>
+using namespace std;
+const int MAX =53;
+char map[MAX][MAX];
+bool check[MAX][MAX];
+int cnt[MAX][MAX]={0,};
+int y,x; 
+
+int dy[4]={1,-1,0,0};
+int dx[4]={0,0,1,-1};
+int maxtime=0;
+
+void bfs(int a,int b)
+{
+  
+  queue <int> q;
+  q.push(a);
+  q.push(b);
+  check[a][b]=true;
+  while(!q.empty())
+  {
+    
+    int yy=q.front(); q.pop();
+    int xx=q.front(); q.pop();
+    check[yy][xx]=true;
+    for(int i=0;i<4;i++)
+    {
+      if( 0<=xx+dx[i] && xx+dx[i]<x && 0<=yy+dy[i] && yy+dy[i]<y && check[yy+dy[i]][xx+dx[i]]==false && map[yy+dy[i]][xx+dx[i]]=='L')
+        {
+          cnt[yy+dy[i]][xx+dx[i]]=cnt[yy][xx]+1;
+          q.push(yy+dy[i]);
+          q.push(xx+dx[i]);
+          check[yy+dy[i]][xx+dx[i]]=true;
+          if( cnt[yy+dy[i]][xx+dx[i]] >maxtime)
+           { maxtime=cnt[yy+dy[i]][xx+dx[i]];
+           }
+        }      
+    }
+    
+    
+    
+  }
+  
+}
+
+
+int main() {
+  cin>>y>>x;
+  for(int i=0;i<y;i++)
+  {
+    scanf("%s",map[i]);
+  }
+
+  // for(int i=0;i<y;i++)
+  // {
+  //   for(int j=0;j<x;j++)
+  //   {
+  //     printf("%c ",map[i][j]);
+  //   }printf("\n");
+  // }
+  
+    for(int i=0;i<y;i++)
+  {
+    for(int j=0;j<x;j++)
+    {
+      if( map[i][j]=='L')
+      {
+        // printf("%d %d\n",i,j);
+        bfs(i,j);
+        // for(int k=0;k<y;k++)
+        // {
+          
+        //   for(int z=0;z<x;z++)
+        //     {printf("%d ",cnt[k][z]);
+        //     }printf("\n");
+        // }printf("\n");
+        
+        for(int k=0;k<y;k++)
+        {
+          
+          for(int z=0;z<x;z++)
+            {check[k][z]=false;
+              cnt[k][z]=0;
+              
+            }
+        }
+        
+      }
+      
+    }
+    
+  }
+  
+  
+  printf("%d",maxtime);
+  
+  return 0;
+}
