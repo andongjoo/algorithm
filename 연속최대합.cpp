@@ -58,3 +58,65 @@ int main() {
 
   return 0;
 }
+
+
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+const int MAX=100001;
+int data[MAX];
+int n;
+
+
+int getMax(int start,int end)
+{
+  if (start>=end)
+    return data[start];
+    
+  int mid=(start+end)/2;
+  int left=getMax(start,mid);
+  int right=getMax(mid+1,end);
+  
+  
+  int leftMax=-918989898;
+  int leftSum=0;
+  
+  for(int i=mid;i>=start;i--)
+  {
+    leftSum =leftSum+data[i];
+    
+    
+    if (leftSum>leftMax)
+      leftMax=leftSum;
+  }
+  int rightMax=-929784854;
+  int rightSum=0;
+  for(int i=mid+1;i<=end;i++)
+  {
+    rightSum=rightSum+data[i];
+    if(rightSum>rightMax)
+      rightMax=rightSum;
+  }
+  
+  int myMax=leftMax+rightMax;
+  
+  return max(max(left,right),myMax);
+  
+  
+}
+
+
+int main() {
+  
+  cin>>n;
+  for(int i=0;i<n;i++)
+    cin>>data[i];
+    
+  printf("%d",getMax(0,n-1));
+ 
+  
+  return 0;
+}
+
