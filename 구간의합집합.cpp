@@ -29,3 +29,72 @@ S[i]를 출력한다.
 3
 
 */
+#include <iostream>
+#include <algorithm>
+
+long long int n;
+long long int a[10001][2]={0,};
+
+using namespace std;
+int main() {
+
+  cin>>n;
+  long long int k;
+  long long int index=0;
+  long long int max=0;
+  long long int min=1000000001;
+  
+  for(int i=0;i<n;i++)
+  {
+    int x,y;
+    cin>>x>>y;
+    if (x<min)
+      min=x;
+    if (y>max)
+      max=y;
+    
+    a[i][0]=x;
+    a[i][1]=y;
+  }
+  cin>>k;
+  k++;
+  long long int s=min;
+  long long int e=max;
+  
+
+  long long int mid;
+  while(s<=e)
+  {
+    long long int index=0;
+    mid=(s+e)/2;
+    
+    
+    for(int i=0;i<n;i++)
+    {
+      if (a[i][0]<= mid && mid<a[i][1])
+        {
+                index+= (mid-a[i][0]+1);
+        }
+      else if ( mid>=a[i][1])
+      {
+        index+= (a[i][1]-a[i][0]+1);
+      }
+    }
+    
+    if (k==index)
+    {
+      printf("%lld",mid);
+      return 0;
+    }
+    
+    if (index >k)
+      e=mid-1;
+    else if (index <k)
+      s=mid+1;
+   
+   
+  }
+  printf("%lld",s);
+  
+  return 0;
+}
