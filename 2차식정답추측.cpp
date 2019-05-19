@@ -18,3 +18,64 @@ f(x) = a 를 만족하는 x의 정수부분을 출력한다.
 103
 예제 출력
 9*/
+#include <iostream>
+#include <math.h>
+using namespace std;
+
+long long sum(long x)
+{
+	return x*x+x;
+}
+
+int main(int argc, char** argv) {
+
+
+	long long   a;
+	cin>>a;
+	
+	long long  int start=0;
+	long long  int end=sqrt(a) ;
+		
+  if (a==1)
+  {
+    printf("0");
+    return 0;
+  }
+	
+	if (sum(end)<=a && sum(end+1))
+		{
+			printf("%lld\n",end);
+			return 0;
+		}
+		
+		long long int s = start;
+		long long int e = end;	
+	
+	
+	while(s+1<e)
+	{
+	
+		if ( s>e)
+			return 0;
+		
+		long long int mid = (s+e)/2;
+		if (sum(mid) <= a && sum(mid+1)>a)
+		{
+			printf("%lld\n",mid);
+			return 0;
+		}
+		
+		if ( sum(mid)<a)
+		{
+			s = mid;
+		}
+		else if (sum(mid)>a)
+		{
+			e=mid;
+		}
+		
+	}
+
+
+	return 0;
+}
