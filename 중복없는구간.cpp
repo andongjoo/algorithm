@@ -31,3 +31,87 @@ r의 최댓값을 출력한다.
 예제 출력
 7
 */
+#include <iostream>
+#include <algorithm>
+int n;
+int a[1000051]={0,};
+int flag=2;
+
+bool check(int interval)
+{
+  
+  int checkdigit[100051];
+  // printf("interval:%d\n",interval);
+ for(int i=0;i<=n-interval;i++)
+  {
+    // printf("i:%d\n",i);
+    int cnt=0;
+    flag++;    
+    for(int k=i;k<i+interval;k++)
+    {
+    
+      if(checkdigit[a[k]]!=flag)
+      {
+          checkdigit[a[k]]=flag;
+          ++cnt;
+      }
+      else
+        break;
+        
+      // printf("k:%d a[%d]:%d cnt:%d\n",k,k,a[k],cnt);
+      
+		if (cnt>=interval)
+  			 {
+  	       // printf("cnt:%d,interval:%d\n",cnt,interval);
+  			   return true;
+  			 }
+    }
+  
+  }
+  
+  return false;
+}
+
+
+using namespace std;
+int main() {
+
+  cin>>n;
+  for(int i=0;i<n;i++)
+    cin>>a[i];
+  
+  int s=1;
+  int e=n;
+  int r=0;;
+  
+  if (n==1)
+  {
+  	printf("1");
+  	return 0;
+  }
+  
+  
+  int c=0;
+  while(s<=e)
+  {
+    int mid = (s+e)/2;
+    c++;
+    // printf("s:%d e:%d mid:%d\n",s,e,mid);
+    if (check(mid)==true )
+    {
+      if ( mid>r)
+        r=mid;
+      s=mid+1;
+    }
+	  else
+      e=mid-1;
+  	
+  
+  } 
+  
+  
+  
+  printf("%d\n",r);
+ 
+	return 0;
+}
