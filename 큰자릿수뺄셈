@@ -1,0 +1,115 @@
+#include <stdio.h>
+#include <string.h>
+#define min(a,b) (((a)<(b)) ? (a):(b))
+#define max(a,b) (((a)>(b)) ? (a):(b))
+
+
+
+
+
+int main() {
+
+  char n1[500];
+  char n2[500];
+  int temp1[500];
+  int temp2[500];
+  
+  scanf("%s",n1);
+  scanf("%s",n2);
+  bool plus=true;
+  
+  if(strlen(n1)<strlen(n2))
+  {
+    plus =false;
+    char temp[101];
+    strcpy(temp,n1);
+    strcpy(n1,n2);
+    strcpy(n2,temp);
+  }
+  
+    if(strlen(n1)==strlen(n2) && strcmp(n1,n2)<0)
+  {
+    plus =false;
+    char temp[101];
+    strcpy(temp,n1);
+    strcpy(n1,n2);
+    strcpy(n2,temp);
+  }
+  
+  
+  for(int i=0;i<strlen(n1);i++)
+  {
+    temp1[i]=n1[i]-'0';
+  }
+  
+  for(int i=0;i<strlen(n2);i++)
+  {
+    temp2[i]=n2[i]-'0';
+  }
+  
+  if (strcmp(n1,n2)==0)
+  {
+    printf("0");
+    return 0;
+  }
+ 
+  
+  for(int i =0;i<strlen(n1)/2;i++)
+  {
+     int tmp=temp1[i];
+     temp1[i]=temp1[strlen(n1)-1-i];
+     temp1[strlen(n1)-1-i]=tmp;
+     
+  }
+  
+  for(int i=0;i<strlen(n2)/2;i++)
+  {
+    int tmp=temp2[i];
+    temp2[i]=temp2[strlen(n2)-1-i];
+    temp2[strlen(n2)-1-i]=tmp;
+  }
+ 
+  
+  for(int i=0;i<strlen(n2);i++)
+  {
+    
+          temp1[i]= temp1[i]-temp2[i];
+          
+    
+  }
+  
+   for(int i=0;i<strlen(n1);i++)
+  {
+    if (temp1[i]<0)
+    {
+       temp1[i]+=10;
+       temp1[i+1]-=1;
+    }
+    
+  }
+  
+   
+  if (plus==false)
+  {
+    printf("-");
+  }
+  
+ 
+  int idx=strlen(n1)-1; 
+ 
+  while(1)
+  {
+    if (temp1[idx]==0)
+      idx--;
+    else
+      break;
+  }
+  
+  for(int i=idx;i>=0;i--)
+  {
+    printf("%d",temp1[i]);
+    
+  }
+  
+  return 0;
+}
