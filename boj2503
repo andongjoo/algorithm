@@ -1,0 +1,104 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+int check[101][1000]={0,};
+int sum[1001]={0,};
+int cnt=0;
+
+
+int main(int argc, char** argv) {
+
+  int n;
+  cin >>n;
+  
+  
+  for(int i=0;i<n;i++)
+  {
+    int x,s,b;
+    cin >>x>>s>>b;
+    
+    int q = x/100;
+    int w =  (x - q*100)/10;
+    int r = (x - q*100 - w*10);
+
+   
+   for(int j=123;j<=987;j++)
+    {   
+   
+        int d = j/100;
+        int e =  (j - d*100)/10;
+        int f = (j - d*100 - e*10);
+   if((d!=e)&&(e!=f)&&(d!=f)&& (d!=0)&& (e!=0)&&(f!=0)   )   
+   {
+        int s2=0,b2=0;
+        sum[j]=1;    
+        if(q==d)
+        {
+          s2++;
+        }
+        
+        if (w==e)
+        {
+          s2++;
+        
+        }
+        
+        if (r==f)
+        {
+          s2+=1;
+          
+        }
+         if (q == e || q==f  )
+        {
+          b2++;
+        }
+        
+        if (w==d||w==f)
+        {
+          b2++;
+        }
+        if (r==d || r==e)
+        {
+          b2++;
+        }
+       
+       
+    if(s==s2 && b ==b2 )
+    {
+      check[i][j]=1;
+    
+      
+      
+    }
+    
+    
+    }
+    }
+  }
+  
+ 
+    for(int i=0;i<n;i++)
+  {
+    for(int j=123;j<=987;j++)
+    {
+        if (check[i][j]==0)
+          sum[j]=0;
+      
+    }
+  }
+  
+  int cnt=0;
+  for(int i=123;i<=987;i++)
+  {  
+     if (sum[i]==1)
+    {
+	    cnt++;
+  }
+    
+  }
+  
+  cout<<cnt;
+  
+	return 0;
+}
