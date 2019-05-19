@@ -1,0 +1,179 @@
+#include <iostream>
+
+using namespace std;
+
+int n;
+int a[15]={0,};
+bool check[10];
+char str[10];
+bool flag = false;
+bool flag2= false;
+
+void go(int index,int cnt)
+{
+   
+  for(int i=9;i>=0;i--)
+  {
+    
+    
+    if (flag==true)
+      return;
+    
+    if (check[i]==false)
+    {
+    
+     if (index==0)
+	 {
+	 		a[index]=i;
+	 		check[i]=true;
+	 		go(index+1,cnt+1);
+	 		check[i]=false;
+	 }	
+		
+	 else if (index !=0)
+	 {
+		
+    	if (str[index-1]=='>')
+      	{
+          if (a[index-1] >i )
+            {
+              check[i]=true;
+              a[index]=i;
+              go(index+1,cnt+1);
+              check[i]=false;
+            }
+          else
+          {
+            return;
+          }
+         
+            
+     	 }
+   	 	else if (str[index-1]=='<')
+      	{
+        	if (a[index-1] <i)
+            {
+              check[i]=true;
+              a[index]=i;
+              go(index+1,cnt+1);
+              check[i]=false;
+                
+            }
+           else
+          {
+          
+            return;
+            
+          } 
+         
+      	}
+  	}
+    }
+    
+	}
+
+   
+    if (n+1==cnt)
+    {
+      for(int i=0;i<index;i++)
+      {
+        printf("%d",a[i]);
+      } 
+      printf("\n");
+      flag = true;
+
+    }
+   
+   
+}
+void go2(int index,int cnt)
+{
+   
+  for(int i=0;i<=9;i++)
+  {
+    
+    
+    if (flag2==true)
+      return;
+    
+    if (check[i]==false)
+    {
+    
+     if (index==0)
+	 {
+	 		a[index]=i;
+	 		check[i]=true;
+	 		go2(index+1,cnt+1);
+	 		check[i]=false;
+	 }	
+		
+	 else if (index !=0)
+	 {
+		
+    	if (str[index-1]=='>')
+      	{
+          if (a[index-1] >i )
+            {
+              check[i]=true;
+              a[index]=i;
+              go2(index+1,cnt+1);
+              check[i]=false;
+            }
+          else
+          {
+            return;
+          }
+         
+            
+     	 }
+   	 	else if (str[index-1]=='<')
+      	{
+        	if (a[index-1] <i)
+            {
+              check[i]=true;
+              a[index]=i;
+              go2(index+1,cnt+1);
+              check[i]=false;
+                
+            }
+           else
+          {
+          
+            return;
+            
+          } 
+         
+      	}
+  	}
+    }
+    
+	}
+
+   
+    if (n+1==cnt)
+    {
+      for(int i=0;i<index;i++)
+      {
+        printf("%d",a[i]);
+      } 
+      printf("\n");
+      flag2 = true;
+
+    }
+   
+   
+}
+
+int main() {
+
+  cin>>n;
+  
+  for(int i=0;i<n;i++)
+  {
+    cin>>str[i];
+  }
+  go(0,0);
+  go2(0,0);
+  
+  return 0;
+}
