@@ -26,3 +26,72 @@ K번째 원소를 출력한다.
 6
 
 */
+#include <iostream>
+#include <math.h>
+#include <algorithm>
+int n;
+int k;
+int a[100][100]={0,};
+long long int count(long long int mid)
+{ 
+  
+    long long int cnt=0;
+    for(int i=1;i<=n;i++)
+    {
+      if(n<(mid/i))
+       { 
+         cnt+=n;
+       }
+      else
+      {
+        cnt+= (mid/i);
+      }
+      // printf("cnt:%d\n",cnt);
+      
+    }
+    return cnt;
+}
+
+using namespace std;
+long long int num=100000000001;
+
+int main() {
+  cin >> n>>k;
+  
+  int s=1;
+  int e=n*n;
+  int mid;
+  while(s<=e)
+  {
+    int mid=(s+e)/2;
+    
+    long long int c=count(mid);
+    // printf("mid:%d cnt:%d\n",mid,c);
+    
+    
+    
+    
+    if ( c>=k )
+      {
+        
+        e=mid-1;
+       if(num>mid)
+       {
+         num=mid;
+       }
+       
+      }
+    else if (c<k)
+     {
+      
+       
+       s=mid+1;
+     }
+  } 
+  printf("%d",num);
+  
+  
+  
+  
+	return 0;
+}
