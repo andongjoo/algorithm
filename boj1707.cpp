@@ -1,97 +1,84 @@
 #include <iostream>
-#include <queue>
-#include <vector>
 #include <algorithm>
+#include <vector>
+#include <queue>
 using namespace std;
-const int MAX=10001;
+int t,n,m;
+vector<int> v[20001];
+int group[20001];
+int flag;
 
-int n,m;
-int flag=0;
-vector<int> g[MAX];
-queue <int> q;
-bool check[MAX];
-int color[MAX];
-void bfs()
+void dfs(int node,int g)
 {
-  int c=1;
-  q.push(1);  
-  check[1]=true;
-  color[1]=c;
-  
-  
-  while(!q.empty())
-  {
-    int current=q.front();
-    q.pop();
-    // printf("%d ",current);
-    
-    if(color[current]==1)
-        c=2;
-    else
-        c=1;
-          
-    for(int i=0;i<g[current].size();i++)
-    {
-      int next=g[current][i];
-      if(check[next]==false)
-      {
-        q.push(next);
-        check[next]=true;
-        color[next]=c;
-        
-        // printf("color[%d]:%d\n",next,color[next]);
-        // if(color[next]==color[current])
-        // {
-        //   // printf("front %d color[%d] next:%d color[%] : %d\n",current,current,color[current],next,next,color[next]);
-        //   flag=1;
-        
-          
-        // }
-        
-        
-      }
-      else if (check[next]==true)
-      {
-        if(color[next]==color[current])
-        { 
-            // printf("front %d color[%d]:%d next:%d color[%d] : %d\n",current,current,color[current],next,next,color[next]);
-          flag=1;
-        
-          
-        }
-      }
-      
-    }
-    
-  }
-  
-  
-  
+	group[node]=g;
+	
+	for(int i=0;i<v[node].size();i++)
+	{
+		int next=v[node][i];
+		if(!group[next])
+		{
+			dfs(next,3-g);
+		}
+	}
+}
+
+void check(void)
+{
+	for(int i=1;i<=n;i++)
+	{
+		for(int j=0;j<v[i].size();j++)
+		{
+			int next=v[i][j];
+			if(group[i]==group[next])
+				flag=0;
+		}
+	}
 }
 
 
-int main() {
+int main(int argc, char** argv) {
 
-  cin>>n>>m;
-
-  for(int i=0;i<m;i++)
-  {
-    int a,b;
-    cin>>a>>b;
-    g[a].push_back(b);
-    g[b].push_back(a);
-    
-  }
-  
-  
-  bfs();
- 
-  if(flag==1)
-    printf("No");
-  else
-    printf("Yes");
-
-  
-
-  return 0;
+	cin>>t;
+	for(int i=0;i<t;i++)
+	{
+		flag=1;
+		
+		for(int j=0;j<20001;j++)
+		{
+			v[j].clear();
+		}
+		for(int j=0;j<20001;j++)
+		{
+            group[j]=0;
+		}
+			
+		cin>>n>>m;
+		for(int j=0;j<m;j++)
+		{
+			int a,b;
+			cin>>a>>b;
+			v[a].push_back(b);
+			v[b].push_back(a);
+		}
+//		for(int j=1;j<=n;j++)
+//		sort(v[j].begin(),v[j].end());
+		
+		for(int j=1;j<=n;j++)
+		{
+			if(group[j]==0)
+			{
+				dfs(j,1);
+			
+			}
+		}
+		check();
+		 if(flag)
+		 	printf("YES\n");
+		else
+			printf("NO\n");
+		
+	}
+	
+	
+	return 0;
 }

@@ -9,15 +9,21 @@ int main(int argc, char** argv) {
 	
 	cin>>n;
 	
-	for(int i=1;i<=n;i++)
+	for(int i=0;i<n;i++)
 	{
-		dp[i]=i;
-		for(int j=1;j*j<=i;j++)
-		{
-			dp[i]=min(dp[i],dp[i-j*j]+1);
-		}
+			cin>>a[i];
 	}
-
-	printf("%d",dp[n]);
+	dp[0]=a[0];
+	int sum=0;
+	for(int i=1;i<n;i++)
+	{
+		dp[i]=max(dp[i],dp[i-1]+a[i]);
+		sum=max(sum,dp[i]);
+	}
+	
+	printf("%d",sum);
+	
+	
+	
 	return 0;
 }
